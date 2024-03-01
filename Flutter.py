@@ -12,9 +12,17 @@ from flet import (
     FilledButton,
     alignment,
 )
+from Recoater import Recoater as recoater
+from hopper import Hopper
+from Serial_file import Serial_Class
+from Z import Zmotion
 
 class Flutter_GUI():
     def __init__(self):
+        self.recoater_obj = recoater(self)
+        self.hopper_obj = Hopper(self)
+        self.serial_obj = Serial_Class(self)
+        self.Z_obj = Zmotion(self)
         self.dashboard_paine = Container(
             alignment=alignment.top_left,
             content = Column(
@@ -39,6 +47,11 @@ class Flutter_GUI():
                     alignment=alignment.top_right,
                     content = Column(
                         controls = [
+                            Container(
+                                width = 550,
+                                height = 20,
+                                content = flt.Text("Recoater")
+                            ),
                             Row(
                                 controls = [
                                     Container(
@@ -48,6 +61,7 @@ class Flutter_GUI():
                                         border_radius = border_radius.all(15),
                                         padding = 0,
                                         alignment=alignment.Alignment(-0.3,-0.4),
+                                        on_click=self.recoater_obj.test_function,
                                     ),
                                     Container(
                                         width = 200,
@@ -59,17 +73,18 @@ class Flutter_GUI():
                                                 text = "Limit switch",
                                                 bgcolor = colors.GREY_700,
                                                 color = colors.BLACK,
-                                                on_click = self.on_button_clicked,
+                                                on_click = self.recoater_obj.test_function,
                                                 data="move left",
                                                 width = 150,
                                                 height = 40,
+
                                                 ),
 
                                                 ElevatedButton(
                                                     text = "direction",
                                                     bgcolor = colors.GREY_700,
                                                     color = colors.BLACK,
-                                                    on_click = self.on_button_clicked,
+                                                    on_click = self.recoater_obj.test_function,
                                                     data="clockwise",
                                                     width = 150,
                                                     height = 40,
@@ -93,7 +108,7 @@ class Flutter_GUI():
                                         text = "Move Left",
                                         bgcolor = colors.GREY_700,
                                         color = colors.BLACK,
-                                        on_click = self.on_button_clicked,
+                                        on_click = self.recoater_obj.test_function,
                                         data="move left",
                                         width = 170,
                                         height = 40,
@@ -107,7 +122,7 @@ class Flutter_GUI():
                                         text = "Clockwise",
                                         bgcolor = colors.GREY_700,
                                         color = colors.BLACK,
-                                        on_click = self.on_button_clicked,
+                                        on_click = self.recoater_obj.test_function,
                                         data="clockwise",
                                         width = 170,
                                         height = 40,
@@ -121,14 +136,14 @@ class Flutter_GUI():
                                         text = "Brake",
                                         bgcolor = colors.GREY_700,
                                         color = colors.BLACK,
-                                        on_click = self.on_button_clicked,
+                                        on_click = self.recoater_obj.test_function,
                                         data="Recoater Brake",
                                     ),
                                     ElevatedButton(
                                         text = "Stop",
                                         bgcolor = colors.GREY_700,
                                         color = colors.BLACK,
-                                        on_click = self.on_button_clicked,
+                                        on_click = self.recoater_obj.test_function,
                                         data="Recoater Stop",
                                     ),
                                      Container(                                  # Don't put equal to, it caused an error
@@ -139,14 +154,14 @@ class Flutter_GUI():
                                         text = "Brake",
                                         bgcolor = colors.GREY_700,
                                         color = colors.BLACK,
-                                        on_click = self.on_button_clicked,
+                                        on_click = self.recoater_obj.test_function,
                                         data="Roller Brake",
                                     ),
                                     ElevatedButton(
                                         text = "Stop",
                                         bgcolor = colors.GREY_700,
                                         color = colors.BLACK,
-                                        on_click = self.on_button_clicked,
+                                        on_click = self.recoater_obj.test_function,
                                         data="Roller Stop",
                             )
                         ]
@@ -166,6 +181,11 @@ class Flutter_GUI():
                     alignment=alignment.top_right,
                     content = Column(
                         controls = [
+                            Container(
+                                width = 550,
+                                height = 20,
+                                content = flt.Text("Hopper")
+                            ),
                             Row(
                                 controls = [
                                     Container(
@@ -186,7 +206,7 @@ class Flutter_GUI():
                                                 text = "Limit switch",
                                                 bgcolor = colors.GREY_700,
                                                 color = colors.BLACK,
-                                                on_click = self.on_button_clicked,
+                                                on_click = self.hopper_obj.test_function,
                                                 data="move left",
                                                 width = 150,
                                                 height = 40,
@@ -196,7 +216,7 @@ class Flutter_GUI():
                                                     text = "direction",
                                                     bgcolor = colors.GREY_700,
                                                     color = colors.BLACK,
-                                                    on_click = self.on_button_clicked,
+                                                    on_click = self.hopper_obj.test_function,
                                                     data="clockwise",
                                                     width = 150,
                                                     height = 40,
@@ -220,7 +240,7 @@ class Flutter_GUI():
                                         text = "Move Left",
                                         bgcolor = colors.GREY_700,
                                         color = colors.BLACK,
-                                        on_click = self.on_button_clicked,
+                                        on_click = self.hopper_obj.test_function,
                                         data="move left",
                                         width = 170,
                                         height = 40,
@@ -234,7 +254,7 @@ class Flutter_GUI():
                                         text = "Clockwise",
                                         bgcolor = colors.GREY_700,
                                         color = colors.BLACK,
-                                        on_click = self.on_button_clicked,
+                                        on_click = self.hopper_obj.test_function,
                                         data="clockwise",
                                         width = 170,
                                         height = 40,
@@ -293,6 +313,11 @@ class Flutter_GUI():
                     alignment=alignment.top_right,
                     content = Column(
                         controls = [
+                            Container(
+                                width = 550,
+                                height = 20,
+                                content = flt.Text("Z-axis")
+                            ),
                             Row(
                                 controls = [
                                     Container(
@@ -428,8 +453,8 @@ class Flutter_GUI():
         page.add(row_container)
         page.update()
 
-    def on_button_clicked(self):
-        pass
+    def on_button_clicked(self,button):
+        print("Hello, I am under the water please help me.")
 
 
 
